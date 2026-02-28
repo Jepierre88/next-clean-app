@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { AuthCommandsPort } from "@auth/domain/ports/AuthPort";
-import { LoginInput, RegisterInput } from "@auth/domain/entities/LoginInput";
+import { LoginInput } from "@auth/domain/entities/LoginInput";
+import { RegisterInput } from "@auth/domain/entities/RegisterInput";
 
 export default function useAuth(): AuthCommandsPort {
 

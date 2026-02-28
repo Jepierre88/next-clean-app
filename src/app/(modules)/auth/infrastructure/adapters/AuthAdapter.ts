@@ -1,5 +1,6 @@
-import { AuthCommandsPort, LoginInput, RegisterInput } from "@auth/domain/entities/LoginInput";
-import { betterAuthInstance } from "../BetterAuth";
+import { AuthCommandsPort } from "@auth/domain/ports/AuthPort";
+import { LoginInput } from "@auth/domain/entities/LoginInput";
+import { RegisterInput } from "@auth/domain/entities/RegisterInput";
 
 export default function authAdapter(datasource: AuthCommandsPort): AuthCommandsPort {
 

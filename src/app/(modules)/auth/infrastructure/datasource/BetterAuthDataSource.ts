@@ -1,10 +1,11 @@
-import { AuthCommandsPort, LoginInput, RegisterInput } from "@auth/domain/entities/LoginInput";
-import { authClient } from "../BetterAuthClient";
-import { betterAuthInstance } from "../BetterAuth";
+import { AuthCommandsPort } from "@auth/domain/ports/AuthPort";
+import { LoginInput } from "@auth/domain/entities/LoginInput";
+import { RegisterInput } from "@auth/domain/entities/RegisterInput";
+import { auth } from "../BetterAuth";
 
 export default function betterAuthDataSource(): AuthCommandsPort {
     async function login(input: LoginInput): Promise<void> {
-       await betterAuthInstance.api.signInEmail({
+       await auth.api.signInEmail({
         body: {
             email: input.email,
             password: input.password,
@@ -17,7 +18,15 @@ export default function betterAuthDataSource(): AuthCommandsPort {
     }
 
     async function register(input: RegisterInput): Promise<void> {
-        // Implement the register logic using better-auth
+        await auth.api.signUpEmail({
+            body: {
+                name: input.name, // required
+                email: input.email, // required
+                password: input.password, // required
+                image: input.image,
+                callbackURL: input.callbackURL,
+            },
+        })
     }
 
     return {

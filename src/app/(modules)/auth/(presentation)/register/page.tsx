@@ -5,19 +5,19 @@ import {
     CardHeader,
     CardTitle,
 } from "@shared/components/ui/card"
-import LoginForm from "./components/LoginForm"
+import RegisterForm from "../components/RegisterForm"
 
-export default function LoginPage() {
+export default function RegisterPage() {
     return (
         <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-bold">Bienvenido</CardTitle>
+                <CardTitle className="text-2xl font-bold">Crear cuenta</CardTitle>
                 <CardDescription>
-                    Inicia sesión con tu cuenta para continuar
+                    Completa los datos para registrarte
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <LoginForm />
+                <RegisterForm />
             </CardContent>
         </Card>
     )
