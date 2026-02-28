@@ -5,22 +5,22 @@ import {
     CardHeader,
     CardTitle,
 } from "@shared/components/ui/card"
-import RegisterForm from "../components/RegisterForm"
+import LoginForm from "../components/LoginForm"
 import Link from "next/link"
 
-export default function RegisterPage() {
+export default function LoginPage() {
     return (
         <div className="flex min-h-screen items-center justify-center px-4">
             <div className="w-full max-w-md space-y-4">
                 <Card>
                     <CardHeader className="text-center">
-                        <CardTitle className="text-2xl font-bold">Crear cuenta</CardTitle>
+                        <CardTitle className="text-2xl font-bold">Bienvenido</CardTitle>
                         <CardDescription>
-                            Completa los datos para registrarte
+                            Inicia sesión con tu cuenta para continuar
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <RegisterForm />
+                        <LoginForm />
                     </CardContent>
                 </Card>
                 <p className="text-center text-sm text-muted-foreground">

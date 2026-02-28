@@ -13,6 +13,7 @@ export const login = async (params: LoginInput): Promise<ActionResponse> => {
         await usecases.loginUser(params);
         return { success: true }
     } catch (error) {
+        console.error("Login error:", error);
         return validateAuthError(error);
     }
 }
@@ -24,6 +25,17 @@ export const register = async (params: RegisterInput): Promise<ActionResponse> =
         return { success: true }
     } catch (error) {
         console.error("Register error:", error);
+        return validateAuthError(error);
+    }
+}
+
+export const loginWithGithub = async (): Promise<ActionResponse> => {
+    const { usecases } = authContainer();
+    try {
+        await usecases.socialLogin();
+        return { success: true }
+    } catch (error) {
+        console.error("Social login error:", error);
         return validateAuthError(error);
     }
 }

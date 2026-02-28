@@ -1,1 +1,1 @@
-export type LoginInput = { email: string; password: string }
+export { type LoginInput } from "@auth/domain/schemas/LoginSchema"

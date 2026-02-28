@@ -14,18 +14,12 @@ export default function betterAuthDataSource(): AuthCommandsPort {
     }
 
     async function logout(): Promise<void> {
-        // Implement the logout logic using better-auth
+        await auth.api.signOut()
     }
 
     async function register(input: RegisterInput): Promise<void> {
         await auth.api.signUpEmail({
-            body: {
-                name: input.name, // required
-                email: input.email, // required
-                password: input.password, // required
-                image: input.image,
-                callbackURL: input.callbackURL,
-            },
+            body: input
         })
     }
 

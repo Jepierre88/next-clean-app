@@ -1,1 +1,1 @@
-export type RegisterInput = { email: string; password: string; name: string; image?: string; callbackURL?: string }
+export { type RegisterInput } from "@auth/domain/schemas/RegisterSchema"
