@@ -1,7 +1,8 @@
-import { AuthSocialLoginPort } from "@auth/domain/ports/AuthPort"
+import type { SocialAuthRegistry } from "@auth/domain/ports/AuthPort"
+import type { SocialProvider } from "@auth/domain/types/SocialProvider"
 
-export function socialLoginUseCase(deps: { auth: AuthSocialLoginPort }) {
-  return async function socialLogin() {
-    await deps.auth.login()
+export function socialLoginUseCase(deps: { registry: SocialAuthRegistry }) {
+  return async function socialLogin(provider: SocialProvider) {
+    await deps.registry[provider].login()
   }
 }

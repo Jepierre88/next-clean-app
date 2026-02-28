@@ -28,18 +28,6 @@ export const register = async (params: RegisterInput): Promise<ActionResponse> =
         return validateAuthError(error);
     }
 }
-
-export const loginWithGithub = async (): Promise<ActionResponse> => {
-    const { usecases } = authContainer();
-    try {
-        await usecases.socialLogin();
-        return { success: true }
-    } catch (error) {
-        console.error("Social login error:", error);
-        return validateAuthError(error);
-    }
-}
-
 const validateAuthError = (error: APIError | unknown): ActionResponse => {
     if (error instanceof APIError) {
         if (error.statusCode === 401) {
