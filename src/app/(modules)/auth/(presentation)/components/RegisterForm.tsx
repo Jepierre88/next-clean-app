@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
     registerSchema,
@@ -10,18 +10,13 @@ import {
 import { register as registerAction } from "../actions"
 import { Input } from "@shared/components/ui/input"
 import { Button } from "@shared/components/ui/button"
-import { Label } from "@shared/components/ui/label"
+import { Field, FieldLabel, FieldError, FieldGroup } from "@shared/components/ui/field"
 import Link from "next/link"
 
 export default function RegisterForm() {
     const [isPending, startTransition] = useTransition()
 
-    const {
-        register: field,
-        handleSubmit,
-        setError,
-        formState: { errors },
-    } = useForm<RegisterFormInput>({
+    const form = useForm<RegisterFormInput>({
         resolver: zodResolver(registerSchema),
         defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
     })
@@ -32,7 +27,7 @@ export default function RegisterForm() {
         startTransition(async () => {
             const response = await registerAction(input)
             if (!response.success) {
-                setError("root", {
+                form.setError("root", {
                     message: response.error ?? "Error al registrarse",
                 })
             }
@@ -40,69 +35,107 @@ export default function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Nombre</Label>
-                <Input
-                    id="name"
-                    type="text"
-                    placeholder="Tu nombre"
-                    autoComplete="name"
-                    disabled={isPending}
-                    {...field("name")}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <FieldGroup>
+                <Controller
+                    name="name"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                            <FieldLabel htmlFor="register-name">
+                                Nombre
+                            </FieldLabel>
+                            <Input
+                                {...field}
+                                id="register-name"
+                                type="text"
+                                placeholder="Tu nombre"
+                                autoComplete="name"
+                                aria-invalid={fieldState.invalid}
+                                disabled={isPending}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
                 />
-                {errors.name && (
-                    <p className="text-sm text-destructive">{errors.name.message}</p>
-                )}
-            </div>
 
-            <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Correo electrónico</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    placeholder="tu@email.com"
-                    autoComplete="email"
-                    disabled={isPending}
-                    {...field("email")}
+                <Controller
+                    name="email"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                            <FieldLabel htmlFor="register-email">
+                                Correo electrónico
+                            </FieldLabel>
+                            <Input
+                                {...field}
+                                id="register-email"
+                                type="email"
+                                placeholder="tu@email.com"
+                                autoComplete="email"
+                                aria-invalid={fieldState.invalid}
+                                disabled={isPending}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
                 />
-                {errors.email && (
-                    <p className="text-sm text-destructive">{errors.email.message}</p>
-                )}
-            </div>
 
-            <div className="flex flex-col gap-2">
-                <Label htmlFor="password">Contraseña</Label>
-                <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    autoComplete="new-password"
-                    disabled={isPending}
-                    {...field("password")}
+                <Controller
+                    name="password"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                            <FieldLabel htmlFor="register-password">
+                                Contraseña
+                            </FieldLabel>
+                            <Input
+                                {...field}
+                                id="register-password"
+                                type="password"
+                                placeholder="••••••••"
+                                autoComplete="new-password"
+                                aria-invalid={fieldState.invalid}
+                                disabled={isPending}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
                 />
-                {errors.password && (
-                    <p className="text-sm text-destructive">{errors.password.message}</p>
-                )}
-            </div>
 
-            <div className="flex flex-col gap-2">
-                <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
-                <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    autoComplete="new-password"
-                    disabled={isPending}
-                    {...field("confirmPassword")}
+                <Controller
+                    name="confirmPassword"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                            <FieldLabel htmlFor="register-confirm-password">
+                                Confirmar contraseña
+                            </FieldLabel>
+                            <Input
+                                {...field}
+                                id="register-confirm-password"
+                                type="password"
+                                placeholder="••••••••"
+                                autoComplete="new-password"
+                                aria-invalid={fieldState.invalid}
+                                disabled={isPending}
+                            />
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
                 />
-                {errors.confirmPassword && (
-                    <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
-                )}
-            </div>
+            </FieldGroup>
 
-            {errors.root && (
-                <p className="text-sm text-destructive text-center">{errors.root.message}</p>
+            {form.formState.errors.root && (
+                <FieldError errors={[form.formState.errors.root]} />
             )}
 
             <Button type="submit" className="w-full" disabled={isPending}>

@@ -1,27 +1,22 @@
 "use client"
 
 import { useTransition } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema, type LoginInput } from "@auth/domain/schemas/LoginSchema"
 import { login } from "../actions"
 import useAuth from "../hooks/UseAuth"
 import { Input } from "@shared/components/ui/input"
 import { Button } from "@shared/components/ui/button"
-import { Label } from "@shared/components/ui/label"
 import { Separator } from "@shared/components/ui/separator"
+import { Field, FieldLabel, FieldError, FieldGroup } from "@shared/components/ui/field"
 import Link from "next/link"
 
 export default function LoginForm() {
     const [isPending, startTransition] = useTransition()
     const { loginWithGithub } = useAuth()
 
-    const {
-        register: field,
-        handleSubmit,
-        setError,
-        formState: { errors },
-    } = useForm<LoginInput>({
+    const form = useForm<LoginInput>({
         resolver: zodResolver(loginSchema),
         defaultValues: { email: "", password: "" },
     })
@@ -30,7 +25,7 @@ export default function LoginForm() {
         startTransition(async () => {
             const response = await login(data)
             if (!response.success) {
-                setError("root", {
+                form.setError("root", {
                     message: response.error ?? "Error al iniciar sesión",
                 })
             }
@@ -64,47 +59,67 @@ export default function LoginForm() {
                 <Separator className="flex-1" />
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                <div className="flex flex-col gap-2">
-                    <Label htmlFor="email">Correo electrónico</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        placeholder="tu@email.com"
-                        autoComplete="email"
-                        disabled={isPending}
-                        {...field("email")}
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                <FieldGroup>
+                    <Controller
+                        name="email"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                                <FieldLabel htmlFor="login-email">
+                                    Correo electrónico
+                                </FieldLabel>
+                                <Input
+                                    {...field}
+                                    id="login-email"
+                                    type="email"
+                                    placeholder="tu@email.com"
+                                    autoComplete="email"
+                                    aria-invalid={fieldState.invalid}
+                                    disabled={isPending}
+                                />
+                                {fieldState.invalid && (
+                                    <FieldError errors={[fieldState.error]} />
+                                )}
+                            </Field>
+                        )}
                     />
-                    {errors.email && (
-                        <p className="text-sm text-destructive">{errors.email.message}</p>
-                    )}
-                </div>
 
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between">
-                        <Label htmlFor="password">Contraseña</Label>
-                        <Link
-                            href="#"
-                            className="text-xs text-muted-foreground hover:text-primary transition-colors"
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </Link>
-                    </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        autoComplete="current-password"
-                        disabled={isPending}
-                        {...field("password")}
+                    <Controller
+                        name="password"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid} data-disabled={isPending}>
+                                <div className="flex items-center justify-between">
+                                    <FieldLabel htmlFor="login-password">
+                                        Contraseña
+                                    </FieldLabel>
+                                    <Link
+                                        href="#"
+                                        className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                                    >
+                                        ¿Olvidaste tu contraseña?
+                                    </Link>
+                                </div>
+                                <Input
+                                    {...field}
+                                    id="login-password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    autoComplete="current-password"
+                                    aria-invalid={fieldState.invalid}
+                                    disabled={isPending}
+                                />
+                                {fieldState.invalid && (
+                                    <FieldError errors={[fieldState.error]} />
+                                )}
+                            </Field>
+                        )}
                     />
-                    {errors.password && (
-                        <p className="text-sm text-destructive">{errors.password.message}</p>
-                    )}
-                </div>
+                </FieldGroup>
 
-                {errors.root && (
-                    <p className="text-sm text-destructive text-center">{errors.root.message}</p>
+                {form.formState.errors.root && (
+                    <FieldError errors={[form.formState.errors.root]} />
                 )}
 
                 <Button type="submit" className="w-full" disabled={isPending}>
