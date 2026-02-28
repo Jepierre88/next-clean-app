@@ -1,11 +1,12 @@
-import authAdapter from "@auth/infrastructure/adapters/AuthAdapter";
+import authAdapter from "@/app/(modules)/auth/infrastructure/adapters/AuthAdapter";
 
-import { registerUserUseCase } from "../usecases/RegisterUserUseCase";
-import { loginUserUseCase } from "../usecases/LoginUserUseCase";
-import { logoutUserUseCase } from "../usecases/LogoutUserUseCase";
+import { registerUserUseCase } from "@auth/application/usecases/RegisterUserUseCase";
+import { loginUserUseCase } from "@auth/application/usecases/LoginUserUseCase";
+import { logoutUserUseCase } from "@auth/application/usecases/LogoutUserUseCase";
+import betterAuthDataSource from "@auth/infrastructure/datasource/BetterAuthDataSource";
 
 export default function authContainer() {
-    const auth = authAdapter();
+    const auth = authAdapter(betterAuthDataSource());
     return {
         usecases: {
             registerUser: registerUserUseCase({ auth }),

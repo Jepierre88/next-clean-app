@@ -4,10 +4,11 @@ import { login } from "./actions";
 
 export default function AuthPage() {
     const onClick = async () => {
-        await login({
+        const response = await login({
             email: "email@example.com",
             password: "password123"
         });
+        console.log(response);
     }
     return (
         <div>
