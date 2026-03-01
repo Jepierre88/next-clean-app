@@ -9,8 +9,8 @@ export default function useAuth() {
         await usecases.socialLogin(provider)
     }, [usecases]);
 
-    const logout = useCallback(async () => {
-        await usecases.socialLogout("github")
+    const logout = useCallback(async (provider: SocialProvider) => {
+        await usecases.socialLogout(provider)
     }, [usecases]);
 
     return {

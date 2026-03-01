@@ -1,5 +1,6 @@
-import ComponentExample from "@/shared/components/component-example";
 
 export default function Page() {
-return <ComponentExample />;
+return <>
+    <h1>Hola mundo</h1>
+</>;
 }
