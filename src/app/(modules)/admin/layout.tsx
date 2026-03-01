@@ -5,6 +5,7 @@ import { Separator } from "@/shared/components/ui/separator";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/shared/components/ui/breadcrumb";
 import { auth } from "../auth/infrastructure/BetterAuth";
 import { headers } from "next/headers";
+import { logoutAction } from "./actions";
 
 export default async function AdminLayout({
   children,
@@ -15,7 +16,7 @@ export default async function AdminLayout({
   const userData = await getUserData()
   return (
     <AdminProviders>
-      <AppSidebar user={userData} />
+      <AppSidebar user={userData} onLogout={logoutAction} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">

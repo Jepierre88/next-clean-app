@@ -154,11 +154,11 @@ const data = {
   ],
 }
 
-export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: {
+export function AppSidebar({ user, onLogout, ...props }: React.ComponentProps<typeof Sidebar> & { user: {
   name: string
   email: string
   avatar: string
-} }) {
+}; onLogout?: () => void }) {
   return (
     <Sidebar variant="inset" collapsible="icon" {...props}>
       <SidebarHeader>
@@ -184,7 +184,7 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <NavUser user={user} onLogout={onLogout} />
       </SidebarFooter>
     </Sidebar>
   )

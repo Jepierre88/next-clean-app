@@ -25,12 +25,14 @@ import { UnfoldMoreIcon, SparklesIcon, CheckmarkBadgeIcon, CreditCardIcon, Notif
 
 export function NavUser({
   user,
+  onLogout,
 }: {
   user: {
     name: string
     email: string
     avatar: string
   }
+  onLogout?: () => void
 }) {
   const { isMobile } = useSidebar()
 
@@ -115,7 +117,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator className="bg-sidebar-border" />
-            <DropdownMenuItem className="focus:bg-sidebar-accent/60 focus:text-sidebar-accent-foreground">
+            <DropdownMenuItem className="focus:bg-sidebar-accent/60 focus:text-sidebar-accent-foreground" onClick={onLogout}>
               <HugeiconsIcon icon={LogoutIcon} strokeWidth={2} className="size-4" />
               Log out
             </DropdownMenuItem>
