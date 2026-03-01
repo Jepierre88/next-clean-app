@@ -5,7 +5,7 @@ export default function githubAuthDatasource(): AuthSocialPort {
     async function login(): Promise<void> {
        await authClient.signIn.social({
         provider: "github",
-        callbackURL: "/",
+    callbackURL: "/admin",
        })
     }
 

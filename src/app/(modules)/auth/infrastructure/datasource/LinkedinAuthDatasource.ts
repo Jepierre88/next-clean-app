@@ -3,9 +3,9 @@ import { authClient } from "../BetterAuthClient";
 
 export default function linkedinAuthDatasource():AuthSocialPort {
     async function login(): Promise<void> {
-        authClient.signIn.social({
+        await authClient.signIn.social({
             provider: "linkedin",
-            callbackURL: "/",
+            callbackURL: "/admin",
         })
     }
 

@@ -11,10 +11,12 @@ import { Button } from "@shared/components/ui/button"
 import { Separator } from "@shared/components/ui/separator"
 import { Field, FieldLabel, FieldError, FieldGroup } from "@shared/components/ui/field"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function LoginForm() {
   const [isPending, startTransition] = useTransition()
   const { loginWithProvider } = useAuth()
+  const router = useRouter()
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -28,7 +30,10 @@ export default function LoginForm() {
         form.setError("root", {
           message: response.error ?? "Error al iniciar sesión",
         })
+        return
       }
+
+      router.replace("/admin")
     })
   }
 
