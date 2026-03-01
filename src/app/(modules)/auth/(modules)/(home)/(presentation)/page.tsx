@@ -27,7 +27,7 @@ export default function AuthLandingPage() {
             <div className="relative z-10 flex flex-col items-center gap-8 px-6 text-center">
                 {/* Logo / Icon */}
                 <div className="bg-primary p-4 rounded-full">
-                    <HugeiconsIcon icon={Key} color="white" size={50}/>
+                    <HugeiconsIcon icon={Key} color="white" size={50} />
                 </div>
 
                 {/* Heading */}
