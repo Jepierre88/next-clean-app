@@ -20,6 +20,13 @@ export const auth = betterAuth({
             clientId: process.env.MICROSOFT_CLIENT_ID!,
             clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
             tenant: "consumers",
-        }
+            enabled: true,
+        },
+        linkedin: {
+            clientId: process.env.LINKEDIN_CLIENT_ID!,
+            clientSecret: process.env.LINKEDIN_CLIENT_SECRET!,
+            scope: ["openid"],
+            enabled: true,
+        }   
     }
 });

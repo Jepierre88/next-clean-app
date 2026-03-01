@@ -4,6 +4,7 @@ import { socialLogoutUseCase } from "@auth/application/usecases/SocialLogoutUseC
 import githubAuthDatasource from "@auth/infrastructure/datasource/GithubAuthDatasource";
 import microsoftAuthDatasource from "@auth/infrastructure/datasource/MicrosoftAuthDatasource";
 import type { SocialAuthRegistry } from "@auth/domain/ports/AuthPort";
+import linkedinAuthDatasource from "@auth/infrastructure/datasource/LinkedinAuthDatasource";
 
 /**
  * Container para autenticación social (client-safe).
@@ -14,6 +15,7 @@ export default function socialAuthContainer() {
     const socialRegistry: SocialAuthRegistry = {
         github: socialAuthAdapter(githubAuthDatasource()),
         microsoft: socialAuthAdapter(microsoftAuthDatasource()),
+        linkedin: socialAuthAdapter(linkedinAuthDatasource()),
     }
 
     return {
