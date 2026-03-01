@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@shared/components/ui/card"
-import LoginForm from "@auth/(presentation)/components/LoginForm"
+import LoginForm from "./components/LoginForm"
 import Link from "next/link"
 
 export default function LoginPage() {

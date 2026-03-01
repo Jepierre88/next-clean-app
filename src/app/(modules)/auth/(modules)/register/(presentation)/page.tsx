@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@shared/components/ui/card"
-import RegisterForm from "@auth/(presentation)/components/RegisterForm"
+import RegisterForm from "./components/RegisterForm"
 import Link from "next/link"
 
 export default function RegisterPage() {
