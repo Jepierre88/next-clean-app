@@ -23,7 +23,8 @@
       "@app/*": ["./src/app/*"],
       "@shared/*": ["./src/shared/*"],
       "@core/*": ["./src/core/*"],
-      "@auth/*": ["./src/app/(modules)/auth/*"]
+      "@auth/*": ["./src/app/(modules)/auth/*"],
+      "@admin/*": ["./src/app/(modules)/admin/*"]
     }
   },
   "include": [
