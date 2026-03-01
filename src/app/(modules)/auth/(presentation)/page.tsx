@@ -34,7 +34,7 @@ export default function AuthLandingPage() {
                 <div className="flex flex-col gap-3">
                     <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                         Bienvenido a{" "}
-                        <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                             JPCORP
                         </span>
                     </h1>
