@@ -26,7 +26,6 @@ const data = {
       icon: (
         <HugeiconsIcon icon={ComputerTerminalIcon} strokeWidth={2} />
       ),
-      isActive: true,
       items: [
         {
           title: "History",
@@ -90,7 +89,7 @@ const data = {
     },
     {
       title: "Settings",
-      url: "#",
+      url: "/admin/settings",
       icon: (
         <HugeiconsIcon icon={Settings05Icon} strokeWidth={2} />
       ),

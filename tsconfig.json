@@ -24,7 +24,8 @@
       "@shared/*": ["./src/shared/*"],
       "@core/*": ["./src/core/*"],
       "@auth/*": ["./src/app/(modules)/auth/*"],
-      "@admin/*": ["./src/app/(modules)/admin/*"]
+      "@admin/*": ["./src/app/(modules)/admin/*"],
+      "@settings/*": ["./src/app/(modules)/admin/(modules)/settings/*"]
     }
   },
   "include": [
